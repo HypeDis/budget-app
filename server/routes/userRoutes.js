@@ -7,6 +7,7 @@ const { User } = require('../../db/index.js');
 const hashPw = require('../../utils/hashPw.js');
 
 router.post('/login', (req, res, next) => {
+  console.log('req body', req.body);
   const email = req.body.email;
   const password = req.body.password;
   const hashedPassword = hashPw(password);
@@ -18,7 +19,7 @@ router.post('/login', (req, res, next) => {
   })
     .then(user => {
       if (!user) {
-        return res.sendStatus(400);
+        return res.status(400).send({ error: 'invalid login' });
       }
       res.status(200).json({ id: user.id, name: user.name });
     })
