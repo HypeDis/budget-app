@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Purchase = require('./Purchase.js');
 
 const db = require('./db.js');
 
@@ -31,10 +32,16 @@ const User = db.define('user', {
 });
 
 User.beforeCreate((user, opts) => {
-  console.log(user.password);
   const hashedPw = hashPw(user.password);
   user.password = hashedPw;
-  console.log(user.password);
 });
 
+User.beforeDestroy((user, options) => {
+  const userId = user.id;
+  Purchase.destroy({ where: { userId } })
+    .then(() => {
+      console.log('destroyed users purchases');
+    })
+    .catch(e => console.error(e));
+});
 module.exports = User;

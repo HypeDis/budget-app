@@ -19,7 +19,7 @@ db.sync({ force: true })
     ]);
   })
   .then(([mark, john, groceries, phone, candy]) => {
-    console.log(groceries);
+    // console.log(groceries);
     console.log('synced');
     return Promise.all([
       groceries.setUser(mark),

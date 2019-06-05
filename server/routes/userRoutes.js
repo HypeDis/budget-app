@@ -59,6 +59,7 @@ router.delete('/:userid', (req, res, next) => {
     where: {
       id,
     },
+    individualHooks: true,
   })
     .then(() => {
       res.status(200).json({ success: true });

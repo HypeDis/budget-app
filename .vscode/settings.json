@@ -1,6 +1,7 @@
 {
   "sqltools.connections": [
     {
+      "askForPassword": false,
       "connectionTimeout": 30,
       "database": "budgetapp",
       "dialect": "PostgreSQL",
