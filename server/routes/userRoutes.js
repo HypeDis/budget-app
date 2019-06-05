@@ -52,4 +52,17 @@ router.put('/update/:userid', (req, res, next) => {
     })
     .catch(next);
 });
+
+router.delete('/:userid', (req, res, next) => {
+  const id = req.params.userid;
+  User.destroy({
+    where: {
+      id,
+    },
+  })
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(next);
+});
 module.exports = router;

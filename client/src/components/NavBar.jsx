@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import LoginInput from './LoginInput.jsx';
+import LogIn from './LogIn.jsx';
 import LogOut from './LogOut.jsx';
 
 class NavBar extends Component {
@@ -18,7 +18,7 @@ class NavBar extends Component {
     this.getUser = this.getUser.bind(this);
     this.logOut = this.logOut.bind(this);
   }
-
+  // get email/password from the input boxes and stores it in the state
   setEmail(email) {
     this.setState({ email });
   }
@@ -26,6 +26,7 @@ class NavBar extends Component {
     this.setState({ password });
   }
 
+  // use email and password to retrieve a users information
   getUser() {
     const email = this.state.email;
     const password = this.state.password;
@@ -44,6 +45,7 @@ class NavBar extends Component {
             userId: response.data.id,
           },
           () => {
+            // set the userId in <Main /> after state is updated
             this.props.setUserId(this.state.userId);
           }
         );
@@ -51,11 +53,13 @@ class NavBar extends Component {
       .catch(e => {
         // 400 status triggers catch block
         console.log('login error');
+        // reset password field if password is incorrect
         this.setPassword('');
         console.error(e);
       });
   }
 
+  // clear the state on logout
   logOut() {
     this.setState({
       loggedIn: false,
@@ -64,6 +68,7 @@ class NavBar extends Component {
       email: '',
       password: '',
     });
+    // clear the userId in <Main />
     this.props.setUserId('');
   }
 
@@ -74,7 +79,7 @@ class NavBar extends Component {
         {this.state.loggedIn ? (
           <LogOut name={this.state.name} logOut={this.logOut} />
         ) : (
-          <LoginInput
+          <LogIn
             setEmail={this.setEmail}
             setPassword={this.setPassword}
             email={this.state.email}

@@ -7,6 +7,7 @@ import PurchaseCard from './components/PurchaseCard.jsx';
 class Main extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userId: '',
       purchases: [],
@@ -15,10 +16,15 @@ class Main extends Component {
     this.setUserId = this.setUserId.bind(this);
   }
 
+  // passed as prop to NavBar Component
   setUserId(userId) {
     this.setState({ userId });
   }
+
+  // grab the purchase history of a user after they log in
+  // remove the purchase history after they log out
   componentDidUpdate(prevProps, prevState) {
+    // login
     if (this.state.userId !== '' && prevState.userId !== this.state.userId) {
       // console.log('get purchases');
 
@@ -31,6 +37,7 @@ class Main extends Component {
         })
         .catch(e => console.error(e));
     }
+    // logout
     if (prevState.userId !== '' && this.state.userId === '') {
       this.setState({
         purchases: [],
@@ -40,7 +47,7 @@ class Main extends Component {
 
   render() {
     return (
-      <div>
+      <div id="main-container">
         <NavBar setUserId={this.setUserId} />
         <div id="purchase-container">
           {this.state.purchases.length

@@ -1,12 +1,14 @@
 import React from 'react';
 
-const LoginInput = props => {
+const LogIn = props => {
   return (
     <div>
       <input
         type="text"
         name="email"
         value={props.email}
+        placeholder="email"
+        // update the email state in <NavBar /> on change
         onChange={e => {
           props.setEmail(e.target.value);
         }}
@@ -15,6 +17,8 @@ const LoginInput = props => {
         type="text"
         name="password"
         value={props.password}
+        placeholder="password"
+        // update the password state in <NavBar /> on change
         onChange={e => {
           props.setPassword(e.target.value);
         }}
@@ -32,4 +36,4 @@ const LoginInput = props => {
   );
 };
 
-export default LoginInput;
+export default LogIn;

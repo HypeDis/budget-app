@@ -12,14 +12,20 @@ db.sync({ force: true })
   .then(() => {
     return Promise.all([
       createUser('mark', 'mark@yahoo.com', '123456'),
+      createUser('john', 'john@gmail.com', '123456'),
       createPurchase('groceries', 12.344),
       createPurchase('phone', 600.34),
+      createPurchase('candy', 1.32),
     ]);
   })
-  .then(([mark, groceries, phone]) => {
+  .then(([mark, john, groceries, phone, candy]) => {
     console.log(groceries);
     console.log('synced');
-    return Promise.all([groceries.setUser(mark), phone.setUser(mark)]);
+    return Promise.all([
+      groceries.setUser(mark),
+      phone.setUser(mark),
+      candy.setUser(john),
+    ]);
   })
   .then(() => {
     db.close();
