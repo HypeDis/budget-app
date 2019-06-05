@@ -55,15 +55,24 @@ router.put('/update/:userid', (req, res, next) => {
 
 router.delete('/:userid', (req, res, next) => {
   const id = req.params.userid;
-  User.destroy({
-    where: {
-      id,
-    },
-    individualHooks: true,
-  })
-    .then(() => {
-      res.status(200).json({ success: true });
+  // User.destroy({
+  //   where: {
+  //     id,
+  //   },
+  //   individualHooks: true,
+  // })
+  //   .then(() => {
+  //     res.status(200).json({ success: true });
+  //   })
+  //   .catch(next);
+  User.findByPk(id)
+    .then(user => {
+      if (user) {
+        return user.destroy();
+      } else {
+        res.send('user not found');
+      }
     })
-    .catch(next);
+    .catch(e => console.error(e));
 });
 module.exports = router;
